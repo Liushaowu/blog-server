@@ -11,7 +11,7 @@
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 03/02/2020 18:15:41
+ Date: 04/02/2020 12:34:33
 */
 
 SET NAMES utf8mb4;
@@ -24,14 +24,15 @@ DROP TABLE IF EXISTS `blog_article`;
 CREATE TABLE `blog_article`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '标题',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '内容',
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '内容',
   `picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '配图',
   `view_count` int(11) NOT NULL DEFAULT 0 COMMENT '浏览量',
   `create_by` int(11) NOT NULL DEFAULT -1 COMMENT '创建人ID',
   `status` tinyint(4) NOT NULL COMMENT '状态(0:草稿 1:已发布)',
   `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_titlie`(`title`) USING BTREE COMMENT '优化标题模糊查询匹配速度'
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
